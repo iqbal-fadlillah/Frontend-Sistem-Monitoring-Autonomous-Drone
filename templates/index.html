@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drone Realtime Monitoring</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="client.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#jumbo">Drone Real Time Monitoring</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#jumbo"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#title-data">Live Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#title-graph">Live Graph</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#result"
+                tabindex="-1"
+                aria-disabled="true"
+                >Data History</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="p-5 text-center bg-image rounded-3" id="jumbo">
+      <div
+        class="container-fluid py-4 d-flex justify-content-center align-items-center h-100"
+      >
+        <h1 class="display-5 fw-bold text-center text-white">
+          Autonomous Drone Real Time Data Monitoring
+        </h1>
+      </div>
+    </div>
+    <br />
+    <button
+      onclick="openSocket()"
+      class="btn btn-primary d-flex justify-content-center"
+      id="vid"
+    >
+      Start Video Real-time
+    </button>
+    <br />
+    <!-- <button
+      onclick="exit()"
+      class="btn btn-primary d-flex justify-content-center"
+      id="stop"
+    >
+      Stop Video Real-time
+    </button> -->
+    <div id="status">The Webcam real-time will show in here</div>
+    <div style="text-align: center">
+      <canvas id="msg" width="600" height="400" style="display: inline-block" />
+    </div>
+    <br />
+    <div
+      class="card text-center text-white bg-primary mb-3 container-fluid justify-content-center rounded-4 border shadow-lg g-0"
+      data-aos="zoom-in"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="1000"
+      style="max-width: 40rem"
+    >
+      <div class="card-header">
+        <h1 class="card-title">Drone Condition</h1>
+      </div>
+      <div class="card-body">
+        <h2 class="kondisi">Information :</h2>
+        <h3 class="kondisi" id="kondisiTerbang1"></h3>
+      </div>
+    </div>
+    <br />
+    <h1 id="title-data">Live Data Report</h1>
+    <br />
+    <section class="data-tampil">
+      <div class="container-fluid justify-content-center rounded-5">
+        <div class="row d-flex justify-content-center data g-0">
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor1">Altitude :</h1>
+            <h2 class="sensor1" id="postElement1"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor2">Ground Speed :</h1>
+            <h2 class="sensor2" id="postElement2"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor3">Wind Speed :</h1>
+            <h2 class="sensor3" id="postElement3"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor4">Battery Volt :</h1>
+            <h2 class="sensor4" id="postElement4"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor5">Latitude :</h1>
+            <h2 class="sensor5" id="postElement5"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor6">Longitude :</h1>
+            <h2 class="sensor6" id="postElement6"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor7">Water Volume :</h1>
+            <h2 class="sensor7" id="postElement7"></h2>
+          </div>
+          <br />
+
+          <div
+            class="col-5 col-md-5 jumbotron bg-light p-2 mx-1 shadow-lg rounded-4 border"
+            data-aos="zoom-in"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="1000"
+          >
+            <h1 class="sensor8">Level Penyiraman :</h1>
+            <h2 class="sensor8" id="postElement8"></h2>
+          </div>
+          <br />
+        </div>
+      </div>
+    </section>
+    <h1 id="title-graph">Live Graph Report</h1>
+    <br />
+    <div class="button-graph">
+      <button class="btn btn-primary" id="upload-graph">
+        Upload All Graph to Database
+      </button>
+      <button class="btn btn-primary" id="reset-graph">Reset All Graph</button>
+    </div>
+    <section>
+      <div class="container-fluid justify-content-center">
+        <div class="row g-0">
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-1"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Altitude Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 col-sm-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center no-chart"
+              id="myChart1"
+              width="600"
+              height="400"
+              data-aos="fade-right"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-2"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Ground Speed Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 col-sm-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center chart"
+              id="myChart2"
+              width="600"
+              height="400"
+              data-aos="fade-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+        </div>
+        <br />
+        <div class="row g-0">
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-5"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Wind Speed Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center no-chart"
+              id="myChart5"
+              width="600"
+              height="400"
+              data-aos="fade-right"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-6"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Battery Volt Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center chart"
+              id="myChart6"
+              width="600"
+              height="400"
+              data-aos="fade-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+        </div>
+        <br />
+        <div class="row g-0">
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-3"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Latitude Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center no-chart"
+              id="myChart3"
+              width="600"
+              height="400"
+              data-aos="fade-right"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-4"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Longitude Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center chart"
+              id="myChart4"
+              width="600"
+              height="400"
+              data-aos="fade-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+        </div>
+        <br />
+
+        <div class="row g-0">
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-7"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Water Volume Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center no-chart"
+              id="myChart7"
+              width="600"
+              height="400"
+              data-aos="fade-right"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+          <div class="col">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-primary d-flex justify-content-center"
+                id="btn-download-8"
+                data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="500"
+                data-aos-offset="0"
+              >
+                Download Spraying Power Graph
+              </button>
+            </div>
+            <br />
+            <canvas
+              class="col-5 jumbotron p-2 mx-1 shadow-lg rounded-3 d-flex justify-content-center chart"
+              id="myChart8"
+              width="600"
+              height="400"
+              data-aos="fade-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="result">
+      <h1 id="title-history">Data History</h1>
+      <br />
+
+      <!-- date picker -->
+      <div class="date-picker">
+        <label for="start">Start Date:</label>
+        <input id="start-date" type="date" />
+        <label for="start">End Date:</label>
+        <input type="date" id="end-date" />
+      </div>
+      <div class="filtering">
+        <br />
+        <p>Please Check Filters Result Below:</p>
+        <input type="checkbox" id="altitude" name="altitude" value="altitude" />
+        Altitude <br />
+        <input type="checkbox" id="battery" name="battery" value="battery" />
+        Battery <br />
+        <input type="checkbox" id="wind" name="wind" value="wind" /> Wind Speed
+        <br />
+        <input type="checkbox" id="ground" name="ground" value="ground" />
+        Ground Speed <br />
+        <input type="checkbox" id="water" name="water" value="water" /> Water
+        Volume <br />
+        <input type="checkbox" id="spraying" name="spraying" value="spraying" />
+        Spraying Power <br />
+        <input type="checkbox" id="latitude" name="latitude" value="latitude" />
+        Latitude <br />
+        <input
+          type="checkbox"
+          id="longitude"
+          name="longitude"
+          value="longitude"
+        />
+        Longitude <br />
+      </div>
+      <div class="date-button">
+        <button id="find" type="button" class="btn btn-outline-primary">
+          Search Date
+        </button>
+      </div>
+      <div><h1 class="data-history">Data Result</h1></div>
+      <div class="data-result" id="list-search"></div>
+
+      <div class="clear-button">
+        <button id="resetImg" type="button" class="btn btn-outline-danger">
+          Clear Result Field
+        </button>
+      </div>
+
+      <div id="search_button_container"></div>
+    </section>
+
+    <footer class="accordion text-white" id="footer">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Google -->
+          <a
+            class="btn btn-outline-light btn-floating m-1"
+            href="https://mail.google.com/mail/u/0/?view=cm&tf=1&fs=1&to=emailanda@gmail.com!"
+            role="button"
+            ><i class="bi bi-envelope"></i
+          ></a>
+
+          <!-- Linkedin -->
+          <a
+            class="btn btn-outline-light btn-floating m-1"
+            href="https://www.linkedin.com/in/iqbalfadlillah/"
+            role="button"
+            ><i class="bi bi-linkedin"></i
+          ></a>
+
+          <!-- Github -->
+          <a
+            class="btn btn-outline-light btn-floating m-1"
+            href="https://github.com/mifbal99"
+            role="button"
+            ><i class="bi bi-github"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn btn-outline-light btn-floating m-1"
+            href="https://www.instagram.com/iqbalfadlillah_/"
+            role="button"
+            ><i class="bi bi-instagram"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="text-center p-3">
+        © 2023 Copyright: Smart Real-time Monitoring Autonomous Drone Berbasis
+        Protokol Mavlink
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js" type="module"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+html{
+    overflow-x: hidden;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+#jumbo {
+    background-image: url('../images/drone.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+
+.jumbotron {
+    height: 220px;
+    margin-bottom: 20px;
+    justify-content: center;
+    
+}
+
+canvas {
+    max-width: auto;
+    justify-content: center;
+    column-fill: auto;
+}
+
+.btn-primary{
+    margin: auto;
+    max-width: fit-content;
+}
+
+.row {
+    justify-content: center;
+}
+
+.data{
+    margin:auto
+}
+
+.data-tampil{
+    justify-content: center;
+}
+
+#title-data{
+    text-align: center;
+    color: #000000;
+}
+
+#title-graph, #title-history {
+    text-align: center;
+    color: #000000;
+    margin-top: 100px;
+}
+
+.button-graph {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.date-picker {
+    text-align: center;
+}
+
+.date-button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.clear-button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.data-result, .data-history{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.filtering {
+    text-align: center;
+}
+
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    color: white;
+    background-color: #4897e0;
+    text-align: center;
+    font-weight: bold;
+}
+
+footer .text-center{
+    background-color: rgba(0, 0, 0, 0.2)
+}
+
+.text-center p-3 {
+    background-color: rgba(0, 0, 0, 0.2)
+}
+.no-chart{
+    display: flex;
+}
+.chart{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search{
+    justify-content: center;
+}
+
+@media (max-device-width: 480px){
+    html, body{
+        overflow-x: hidden;
+    }
+    .sensor1{
+        max-height: 50%;
+        max-width: 50%;
+    }
+    .no-chart{
+        justify-content: center;
+    }
+    .chart{
+        justify-content: center;
+    } 
+    /* .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2, #myChart3, #myChart4 {
+        width: 100%;
+    }
+    .col-5, .data-tampil{
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    } */
+}
+
+@media (min-device-width: 481px) and (max-device-width: 767.98px){
+    html, body{
+        overflow-x: hidden;
+    }
+    /* .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2, #myChart3, #myChart4 {
+        width: 100%;
+    }
+    .col-5, .data-tampil{
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    } */
+}
+
+@media (min-device-width: 768px) and (max-device-width: 991px){
+    html, body{
+        overflow-x: hidden;
+    }
+
+
+    /* .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2, #myChart3, #myChart4 {
+        width: 100%;
+    }
+    .col-5, .data-tampil{
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    } */
+}
+
+@media (min-width: 992px) {
+    #jumbo {
+      height: 600px;
+    }
+}
+/* @media only screen and (max-width: 1024px) {
+    .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2, #myChart3, #myChart4 {
+        width: 100%;
+    }
+    .col-5, .data-tampil{
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    }
+} */
+
+
+
+
+/* @media screen and (min-device-width: 481px) and (max-device-width: 768px){
+    .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2, #myChart3, #myChart4 {
+        width: 100%;
+    }
+    .col-5, .data-tampil{
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    }
+} */
+
+/* @media only screen and (min-width: 600px) {
+    .p-5 {
+        margin: 0;
+    }
+    .p-5, .container-fluid, .row, #btn-download, #myChart1, #myChart2 {
+        width: 100%;
+    }
+    .col-5 ,.data-tampil{
+        width: 100%;
+    }
+    .footer{
+        width: 100%;
+    }
+} */
